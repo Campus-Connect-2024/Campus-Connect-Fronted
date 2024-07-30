@@ -1,14 +1,36 @@
 import { useState } from 'react'
-import './App.css'
+import postImage from './assets/result.png'
+import { Navbar, PostCard, ShowPostCard, RightSideCard, LeftSideCard} from './Components/index'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className='m-auto text-center mt-60'>
-      <h1 className='text-red-700 text-4xl font-bold'>Campus Connect</h1>
-      {/* <h1 className='text-3xl font-bold'>Counter: {count}</h1>
-      <button onClick={() => setCount(count + 1)} className='border-2 border-red-600 rounded-xl px-2 py-1 bg-sky-400 font-semibold text-xl'>Increment</button> */}
+    <div className='w-full'>
+      <Navbar />
+      <div className='flex'>
+        <div className='lg:w-[22vw]'>
+        <div className='mx-3 mt-1 ' >
+          <LeftSideCard />
+        </div>
+        <div className='mx-3 my-2'>
+          <LeftSideCard />
+        </div>
+        </div>
+        <div className='overflow-auto w-[50vw] flex-1'>
+        <div className=' mt-1 '>
+          <PostCard />
+          <ShowPostCard postImage={postImage}/>
+          <ShowPostCard postImage={postImage}/>
+          <ShowPostCard postImage={postImage}/>
+        </div>  
+        </div>
+        <div className='w-[28vw]'>       
+        <div className='mx-3 mt-1' >
+        <RightSideCard/>
+        </div>
+        
+        </div>
+      </div>
     </div>
   )
 }
