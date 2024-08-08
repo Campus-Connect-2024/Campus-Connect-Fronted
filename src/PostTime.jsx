@@ -5,7 +5,7 @@ function PostTime({ date }) {
 
   return (
     <div>
-      <p className="ml-6 text-gray-300">
+      <p className="ml-6 text-gray-900">
         <ReactTimeAgo date={date} locale="en-US" />
       </p>
     </div>
