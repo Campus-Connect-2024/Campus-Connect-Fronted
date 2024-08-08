@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 
 function FollowBtn() {
+  const [follow, setFollow] = useState(false);
+  console.log(follow)
   return (
-    <div className='flex items-center'>
-        <button className='border-none text-white text-lg cursor-pointer bg-blue-500 rounded-md px-4 py-1 text-center'>Follow</button>
+    <div className='flex items-center justify-center'> 
+        <button className='border-none text-blue-600  text-lg cursor-pointer text-center  hover:text-blue-400 hover:underline' onClick={() => setFollow(!follow)}  >Follow</button>
     </div>
   )
 }
