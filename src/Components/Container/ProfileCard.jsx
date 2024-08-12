@@ -1,22 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import reactImg from "/src/assets/icon.jpeg"
-import ProfileImage from '../ProfileImage'
+import coverImg from "/src/assets/cover.jpg"
+import CurrentUserAvatar from "../Container/CurrentUserAvatar"
+import { useSelector } from 'react-redux'
 
 function ProfileCard(className) {
+    const currentUser = useSelector((state) => state.auth.currentUser);
+    console.log("current user", currentUser);
+    
   return (
     <div className="bg-white rounded-[1.8rem] w-full md:w-[14vw] lg:w-full text-black shadow-md border-2 border-white  ">
         <div className='w-full h-28 md:h-24 lg:h-24 p-5 '>
-        <img className=' h-28 md:h-24 lg:h-28 w-full rounded-[1.5rem]' src={reactImg} alt="img" />
+        <img className=' h-28 md:h-24 lg:h-28 w-full rounded-[1.5rem]' src={currentUser?.coverImage || coverImg} alt="img" />
         </div>
         <div className='flex justify-center items-center'>
-            <ProfileImage className=" border-4  w-24 h-[5.5rem]" imgUrl={reactImg}/>
+            <CurrentUserAvatar className=" border-4  w-24 h-[5.5rem]" />
         </div>
        
         <div className='pt-4 pb-5 px-8'>
         <div >
-            <p className='text-center text-xl font-bold'>Ravindra Yadav </p>
-            <p className='text-center font-normal italic text-gray-700 '>@Ravindra01 </p>
+            <p className='text-center text-xl font-bold'>{currentUser?.fullName} </p>
+            <p className='text-center font-normal italic text-gray-700 '>@{currentUser?.username} </p>
         </div>
         
         <div className='flex justify-between px-4 pt-5 pb-8'>

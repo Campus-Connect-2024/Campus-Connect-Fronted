@@ -1,21 +1,21 @@
 import React from "react";
-import SearchBox from "../SearchBox";
 import CampusSvg from "/src/assets/Campus.svg";
 import Homesvg from "/src/assets/Home.svg";
 import msgSvg from "/src/assets/message.svg";
 import logoutSvg from "/src/assets/logout.svg";
 import groupsvg from "/src/assets/peoplegroup.svg";
 import { Link, useNavigate } from "react-router-dom";
-import ProfileImage from "../ProfileImage";
-import resultImg from "/src/assets/train.jpg";
+
 import { apiClient } from "../../lib/api-client";
 import { LOGOUT_ROUTE } from "../../utils/constants";
 import { logout } from "../../slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import CurrentUserAvatar from "../Container/CurrentUserAvatar";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const logout = async () => {
     try {
       const response = await apiClient.post(LOGOUT_ROUTE, {}, {
@@ -66,8 +66,8 @@ function Header() {
       </div>
       <div className="flex justify-center items-center gap-5">
         <Link className="flex gap-3 justify-center items-center" to="/profile">
-          <ProfileImage imgUrl={resultImg} className="w-10 h-10" />
-          <span className="font-semibold text-gray-600">Ravindra</span>
+          <CurrentUserAvatar  className="w-10 h-10" />
+          <span className="font-semibold text-gray-600">{currentUser?.fullName}</span>
         </Link>
         <div className="">
           <button onClick={logout}>

@@ -5,6 +5,7 @@ const initialState = {
     post: {},
     postFile: null,
     displayPostForm: false,
+    currentUserPost: [],
 
 }
 
@@ -21,12 +22,15 @@ const initialState = {
         setPostFile: (state, action) => {
             state.postFile = action.payload
         },
+        setCurrentUserPost: (state, action) => {
+            state.currentUserPost = action.payload
+        },
         setDisplayPostForm: (state, action) => {
             state.displayPostForm = action.payload
         },
     }   
 })
 
-export const {setPosts, setPost, setPostFile, setDisplayPostForm} = postSlice.actions;
+export const {setPosts, setPost, setPostFile, setDisplayPostForm, setCurrentUserPost} = postSlice.actions;
 
 export default postSlice.reducer

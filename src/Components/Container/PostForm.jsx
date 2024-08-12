@@ -5,8 +5,12 @@ import photoSvg from "/src/assets/Gallery.svg";
 import videoSvg from "/src/assets/video.svg";
 import { apiClient } from "../../lib/api-client";
 import { CREATE_POST_ROUTE } from "../../utils/constants";
+import CurrentUserAvatar from "./CurrentUserAvatar";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const PostForm = ({ postForm }) => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [postMessage, setPostMessage] = useState("");
   const [postFile, setPostFile] = useState(null); // Use null for no file
 
@@ -49,10 +53,15 @@ const PostForm = ({ postForm }) => {
       <div className="w-full h-full bg-white/85 rounded-2xl flex justify-center items-center flex-col px-[20rem]">
         <div className="shadow-md border-2 border-white shadow-gray-600 rounded-2xl w-full p-5 bg-white">
           <div className="flex justify-between items-center mb-3 w-full px-5">
+            <Link to={"/profile"}>
             <div className="flex justify-center items-center gap-5">
-              <ProfileImage imgUrl={profileImg} className="w-12 h-12" />
-              <p className="text-xl font-bold">Ravindra Yadav</p>
+              <CurrentUserAvatar className="w-12 h-12" />
+              <div>
+              <p className="text-xl font-bold">{currentUser?.fullName}</p>
+              <p className="text-md font-normal italic">@{currentUser?.username}</p>
+              </div>
             </div>
+            </Link>
             <div>
               <button onClick={postForm} className="hover:text-xl">
                 ❌
