@@ -1,5 +1,5 @@
 export const HOST = import.meta.env.VITE_SERVER_URL;
-
+console.log(HOST);
 export const USER_ROUTES = "api/v1/users";
 export const POST_ROUTE = "api/v1/posts";
 export const COMMENT_ROUTE = "api/v1/comments/";

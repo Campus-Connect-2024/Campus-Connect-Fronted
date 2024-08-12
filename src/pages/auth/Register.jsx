@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import victory from "../../assets/victory.svg";
-import backgroundImage from "../../assets/login2.png";
+
 
 import { apiClient } from "../../lib/api-client";
-import { LOGIN_ROUTE, REGISTER_ROUTE } from "../../utils/constants";
-import { Link, useNavigate } from "react-router-dom";
+import {  REGISTER_ROUTE } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../slice/authSlice";
 
@@ -72,7 +72,7 @@ const Auth = () => {
             </div>
           </div>
           <div className="flex justify-center items-center  w-full ">
-            <div className="flex flex-col  items-center gap-8 w-[70%]">
+            <div className="flex flex-col  items-center gap-6 w-[70%]">
               <input
                 placeholder="Email"
                 type="email"

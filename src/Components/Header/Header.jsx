@@ -10,7 +10,7 @@ import ProfileImage from "../ProfileImage";
 import resultImg from "/src/assets/train.jpg";
 import { apiClient } from "../../lib/api-client";
 import { LOGOUT_ROUTE } from "../../utils/constants";
-import { setLogin } from "../../slice/authSlice";
+import { logout } from "../../slice/authSlice";
 import { useDispatch } from "react-redux";
 
 function Header() {
@@ -23,7 +23,7 @@ function Header() {
       });
       console.log({ response });
       if (response.status === 200) {
-        dispatch(setLogin(false));
+        // dispatch(logout({}));
         navigate("/login");
       }
     } catch (error) {

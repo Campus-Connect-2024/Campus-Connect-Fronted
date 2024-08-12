@@ -16,9 +16,12 @@ const initialState = {
         },
         setLogin: (state, action) => {
             state.login = action.payload
+        },
+        logout: (state, actions) => {
+            state.userInfo = undefined
         }
     }
 })
 
-export const { setUserInfo, setLogin } = authSlice.actions
+export const { setUserInfo, setLogin, logout } = authSlice.actions
 export default authSlice.reducer

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { LIKE_ROUTE } from '../../utils/constants';
 import { apiClient } from '../../lib/api-client';
 
-function LikeBtn({className, svg, postId}) {
+function LikeBtn({className, svg, post}) {
     const [Likes, setLikes] = useState([]);
 
    
@@ -24,7 +24,7 @@ function LikeBtn({className, svg, postId}) {
 
   return ( 
     <div className=' pl-5 py-2 cursor-pointer flex justify-center items-center'>              
-        <button className='flex gap-3 text-black cursor-pointer items-center' onClick={likes}><img src={svg} className={` ${className}`} alt="like" /> {Likes.length} </button>
+        <button className='flex gap-3 text-black cursor-pointer items-center' ><img src={svg} className={` ${className}`} alt="like" /> {post.likesCount} </button>
     </div>
   )
 }
