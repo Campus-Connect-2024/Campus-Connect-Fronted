@@ -2,23 +2,39 @@ import React, { useEffect, useState } from 'react'
 import { Navbar, PostCard, ShowPostCard, LeftSideCard, RightSideCard } from '../../Components'
 import { apiClient } from '../../lib/api-client'
 import { GET_ALL_POSTS } from '../../utils/constants'
+import LoadingPage from '../../Components/Container/LoadingPage'
+import { useSelector } from 'react-redux'
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     ;(async () => {
       try{
         const allPosts = await apiClient.get(GET_ALL_POSTS, {withCredentials: true });
+        if(!allPosts){
+          console.log("loading", loading )
+          setLoading(true);
+          setError(false);
+        }
         if(allPosts){
           setPosts(allPosts.data.data.posts);
+          setLoading(false);
+          setError(false);
         }
-        console.log(allPosts.data.data.posts[0]);
+        console.log(allPosts.data.data.posts);
       }catch(error){
+        setLoading(false);
+        setError(true);
         console.log(error);
       }
       
     })() 
   }, [])
+
   return (
+  
     <div className='w-full h-100vh flex flex-col fixed top-0'>
       <div className='sticky top-0'>
       <Navbar />

@@ -18,8 +18,6 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  
-
   const validateSignup = () => {
     if (!email.length) {
       console.error("Email is required!");
@@ -41,12 +39,12 @@ const Auth = () => {
     }
     return true;
   };
-  
+
   const handleSignup = async () => {
     if (validateSignup()) {
       const response = await apiClient.post(
         REGISTER_ROUTE,
-        { email, password, fullName, username },
+        { email, password, fullName, username},
         { withCredentials: true }
       );
       if (response.status === 201) {
@@ -66,9 +64,12 @@ const Auth = () => {
           <div className="flex flex-col justify-center items-center">
             <div className="flex  justify-center items-center mt-3">
               <h1 className="text-5xl font-bold md:text-6xl">Welcome</h1>
-              <img src={victory} className="lg:h-[100px] h-20" alt="victory imoji" />
+              <img
+                src={victory}
+                className="lg:h-[100px] h-20"
+                alt="victory imoji"
+              />
             </div>
-           
           </div>
           <div className="flex justify-center items-center  w-full ">
             <div className="flex flex-col  items-center gap-8 w-[70%]">
@@ -101,6 +102,7 @@ const Auth = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+
               <input
                 placeholder="Confirm Password"
                 type="password"

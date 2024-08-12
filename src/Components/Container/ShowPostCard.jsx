@@ -1,5 +1,4 @@
-import React from "react";
-import profileImg from "/src/assets/train.jpg";
+import React, {useState} from "react";
 import ProfileImage from "../ProfileImage";
 import HeartSvg from "/src/assets/heart.svg";
 import CommentSvg from "/src/assets/comment.svg";
@@ -7,15 +6,38 @@ import repostSvg from "/src/assets/repost.svg";
 import sendSvg from "/src/assets/send.svg";
 import LikeBtn from "./LikeBtn";
 
-import PostBtn from "./PostBtn";
 import PostTime from "../../PostTime";
-import SearchBox from "../SearchBox";
+import { apiClient } from "../../lib/api-client";
+import { COMMENT_ROUTE } from "../../utils/constants";
 import CommentBtn from "./CommentBtn";
 import RepostBtn from "./RepostBtn";
 
+
 function ShowPostCard({ post = undefined }) {
+  const [commentMsg, setCommentMsg] = useState("");
+
+
+  const commentHandler = async () => {
+    if(commentMsg.length > 0) {
+      try {
+        const response = await apiClient.post(
+          `${COMMENT_ROUTE}${post._id}`,
+          { content: commentMsg, postId: post._id },
+          { withCredentials: true }
+        )
+
+        console.log("comment", response.data.data);
+
+      } catch (error) {
+        console.log("comment_error", error);
+      }
+
+    }
+    return ;
+  };
+
   const time = new Date(post?.createdAt);
-  console.log(time);
+  // console.log(time);
   return (
     <div className="bg-white flex flex-col py-5 px-8 rounded-[1.5rem] w-full h-34 my-6 shadow-md border-2 border-white">
       <div className="w-full mr-7 flex  ">
@@ -50,15 +72,17 @@ function ShowPostCard({ post = undefined }) {
         </div>
 
         <div className="flex gap-10 pl-3 mt-5">
-          <LikeBtn svg={HeartSvg} />
-          <CommentBtn svg={CommentSvg} />
+          <LikeBtn svg={HeartSvg} postId={post._id} />
+          <CommentBtn svg={CommentSvg} postId={post._id} />
           <RepostBtn svg={repostSvg} />
           
         </div>
         <div className="flex gap-5 mt-5">
-          <ProfileImage imgUrl={profileImg} className="w-12 h-12 ml-5"/>
-          <SearchBox placeholder="write your commet..." className="px-5 py-3 bg-gray-300 w-full rounded-2xl"/>
-          <button className=" bg-blue-500 px-3 py-2 rounded-full w-14 h-11"><img src={sendSvg} className="" alt="post"/></button>
+          <ProfileImage imgUrl={post?.owner.avatar} className="w-11 h-11 ml-5"/>
+          <input placeholder="write your commet..." className="px-5 py-3 bg-gray-300 w-full rounded-2xl border-none  outline-none text-black" onChange={(e)=> {
+            setCommentMsg(e.target.value)
+          }}  />
+          <button className=" bg-blue-500 px-3 py-2 rounded-full w-14 h-11"><img src={sendSvg} className="" alt="post" onClick={commentHandler}/></button>
         </div>
       </div>
     </div>

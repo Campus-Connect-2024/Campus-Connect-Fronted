@@ -11,7 +11,7 @@ function SearchBox({ placeholder, className="", params}) {
       <input
         type='text'
         placeholder={placeholder}
-        className={`border-none  outline-none text-black ${className}`}
+        className={` ${className}`}
         // value={searchValue}
         // onChange={handleChange}
         {...params}

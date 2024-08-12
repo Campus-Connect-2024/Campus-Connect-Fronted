@@ -6,7 +6,7 @@ import { apiClient } from "../../lib/api-client";
 import { LOGIN_ROUTE } from "../../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../slice/authSlice";
+import { setUserInfo, setLogin } from "../../slice/authSlice";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Error, setError] = useState("");
+  // const [login , setLogin] = useState(false);
 
   const validateLogin = () => {
     if (!email.length) {
@@ -40,7 +41,8 @@ const Auth = () => {
 
         if (response.data.data.user._id) {
           console.log("response ", response.data.data);
-          dispatch(setUserInfo(response.data.data));
+          dispatch(setUserInfo(response.data.data.user));
+          dispatch(setLogin(true));
           if (response.data.data.user) {
             navigate("/dashboard");
           }
@@ -50,9 +52,11 @@ const Auth = () => {
 
       } catch (error) {
         if(error){
+          setLogin(false);
           setError(error);
           console.error("login_error", error.response.status);
           throw error;
+          
         }
        
       }
