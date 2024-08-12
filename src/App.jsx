@@ -4,7 +4,7 @@ import Auth from "./pages/auth/Auth";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/post/Dashboard";
 import Register from "./pages/auth/Register";
-import Profile from "./pages/profiePage/Profile";
+import Profile from "./pages/profilePage/Profile";
 import { useSelector } from "react-redux";
 
 function App() {
