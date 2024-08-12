@@ -11,6 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     ;(async () => {
+      console.log("getallposts", GET_ALL_POSTS);
       try{
         const allPosts = await apiClient.get(GET_ALL_POSTS, {withCredentials: true });
         if(!allPosts){
@@ -52,8 +53,8 @@ const Dashboard = () => {
         <div className='  w-full '>
           <PostCard />
           {
-            posts.map((post, _id) => (
-              <ShowPostCard key={_id} post={post}/>
+            posts.map((post) => (
+              <ShowPostCard key={post._id} post={post}/>
             ))
           }
 

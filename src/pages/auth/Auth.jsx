@@ -42,7 +42,7 @@ const Auth = () => {
         if (response.data.data.user._id) {
           console.log("response ", response.data.data);
           dispatch(setUserInfo(response.data.data.user));
-          dispatch(setLogin(true));
+          
           if (response.data.data.user) {
             navigate("/dashboard");
           }
@@ -52,7 +52,7 @@ const Auth = () => {
 
       } catch (error) {
         if(error){
-          setLogin(false);
+         
           setError(error);
           console.error("login_error", error.response.status);
           throw error;

@@ -25,7 +25,7 @@ function ShowPostCard({ post = undefined }) {
           { content: commentMsg, postId: post._id },
           { withCredentials: true }
         )
-
+        setCommentMsg("");
         console.log("comment", response.data.data);
 
       } catch (error) {
@@ -72,14 +72,14 @@ function ShowPostCard({ post = undefined }) {
         </div>
 
         <div className="flex gap-10 pl-3 mt-5">
-          <LikeBtn svg={HeartSvg} postId={post._id} />
-          <CommentBtn svg={CommentSvg} postId={post._id} />
+          <LikeBtn svg={HeartSvg} post={post} />
+          <CommentBtn svg={CommentSvg} post={post} />
           <RepostBtn svg={repostSvg} />
           
         </div>
         <div className="flex gap-5 mt-5">
           <ProfileImage imgUrl={post?.owner.avatar} className="w-11 h-11 ml-5"/>
-          <input placeholder="write your commet..." className="px-5 py-3 bg-gray-300 w-full rounded-2xl border-none  outline-none text-black" onChange={(e)=> {
+          <input placeholder="write your commet..." className="px-5 py-3 bg-gray-300 w-full rounded-2xl border-none  outline-none text-black" value={commentMsg} onChange={(e)=> {
             setCommentMsg(e.target.value)
           }}  />
           <button className=" bg-blue-500 px-3 py-2 rounded-full w-14 h-11"><img src={sendSvg} className="" alt="post" onClick={commentHandler}/></button>

@@ -18,8 +18,6 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
        
           <Route path="/dashboard" element={<Dashboard />}></Route>
-      
-        {/* <Route path='/dashboard' element={<Dashboard />}></Route> */}
         <Route path="/register" element={<Register />}></Route>
         <Route path="*" element={<Auth />}></Route>
       </Routes>
