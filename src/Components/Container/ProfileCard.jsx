@@ -29,10 +29,11 @@ function ProfileCard(className) {
                 <p className='text-center italic font-normal text-gray-700 hover:text-black'>Following</p>
             </div>
         </div>
-        
+        <Link to="/profile" >
         <div className='p-3 cursor-pointer bg-blue-500 rounded-2xl flex justify-center items-center text-white hover:bg-blue-400'> 
-            <Link to="/profile" className='font-semibold '>My Profile</Link> 
+            <p  className='font-semibold '>My Profile</p> 
         </div>
+        </Link>
         </div>
         
     </div>
