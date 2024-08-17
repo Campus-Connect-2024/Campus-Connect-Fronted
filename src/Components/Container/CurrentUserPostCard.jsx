@@ -8,7 +8,7 @@ import repostSvg from "/src/assets/repost.svg";
 const CurrentUserPostCard = ({post = undefined}) => {
     
     return (
-        <div className="bg-[#f6f3ef] flex flex-wrap py-4 px-5 rounded-[1.2rem] w-[46%] m-2 shadow-lg border-none">
+        <div className="bg-[#f6f3ef] flex flex-wrap py-4 px-5 rounded-[1.2rem] w-[46%] m-2 shadow-lg border-none ">
          
           <div className="w-full ">
             <div className="mb-5 px-2 text-black">

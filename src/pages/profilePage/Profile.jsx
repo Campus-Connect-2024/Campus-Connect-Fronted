@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Navbar, ShowPostCard } from "../../Components";
+import React, { useEffect, useState} from "react";
+import { Navbar } from "../../Components";
 import coverImg from "/src/assets/cover.jpg";
 import { useSelector } from "react-redux";
 import {  GET_ALL_POSTS_BY_USER } from "../../utils/constants";
@@ -8,8 +8,15 @@ import { setCurrentUserPost } from "../../slice/postSlice";
 import { useDispatch } from "react-redux";
 import CurrentUserPostCard from "../../Components/Container/CurrentUserPostCard";
 import CurrentUserAvatar from "../../Components/Container/CurrentUserAvatar";
+import About from "../../Components/Container/About";
+import AllFreinds from "../../Components/Container/AllFreinds";
 
 const Profile = () => {
+  const [aboutActive, setAboutActive] = useState(true);
+  const [freindsActive, setFreindsActive] = useState(false);
+  const [postActive, setPostActive] = useState(false);
+
+
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const currentUserPost = useSelector((state) => state.post.currentUserPost);
@@ -32,11 +39,31 @@ const Profile = () => {
       }
     })();
   }, [currentUser?._id]);
+
+  const AboutHandler = () => {
+    setAboutActive(true);
+    setFreindsActive(false);
+    setPostActive(false);
+  };
+
+  const FreindsHandler = () => {
+    setAboutActive(false);
+    setFreindsActive(true);
+    setPostActive(false);
+  };
+
+  const CurrPostHandler = () => {
+    setAboutActive(false);
+    setFreindsActive(false);
+    setPostActive(true);
+  };
+
+
   return (
     <div className="w-full h-[100vh] fixed top-0 left-0 bg-[#f6f3ef]">
       <Navbar />
 
-      <div className="flex m-6 h-[87vh] gap-7">
+      <div className="flex m-6 h-[87vh] gap-7 ">
         <div className="w-1/4  bg-white rounded-2xl ">
           <div className="w-full h-28 md:h-24 lg:h-24 p-5">
             <img
@@ -119,25 +146,25 @@ const Profile = () => {
             </p>
           </div>
         </div>
-        <div className="w-3/4 bg-white overflow-hidden overflow-y-scroll no-scrollbar rounded-2xl p-8 h-auto">
-          <div className="bg-white z-50 sticky top-0">
-            <div className="w-full px-3  z-30 bg-white">
+        <div className="w-3/4 bg-white overflow-hidden overflow-y-scroll no-scrollbar rounded-2xl pb-8 px-8 h-auto">
+          <div className=" z-50 sticky top-0 backdrop-blur-sm pt-8" >
+            <div className="w-full px-3 z-50 ">
               <ul className="flex justify-around">
-                <li className="text-xl font-bold hover:text-blue-600 cursor-pointer ">
+                <li className={`text-xl font-bold hover:text-blue-600 cursor-pointer ${aboutActive && "text-blue-600 underline animate-pulse duration-100"} `} onClick={AboutHandler}>
                   About
                 </li>
-                <li className="text-xl font-bold hover:text-blue-600 cursor-pointer">
+                <li className={`text-xl font-bold hover:text-blue-600 cursor-pointer ${freindsActive && "text-blue-600 underline animate-pulse duration-100"} `} onClick={FreindsHandler}>
                   Freinds
                 </li>
-                <li className="text-xl font-bold hover:text-blue-600 cursor-pointer">
+                <li className={`text-xl font-bold hover:text-blue-600 cursor-pointer ${postActive && "text-blue-600 underline animate-pulse duration-100"} `} onClick={CurrPostHandler}>
                   Posts({currentUserPost?.length})
                 </li>
               </ul>
             </div>
             <div className="w-[97%] my-3 mx-4 underline bg-gray-700 h-[2px] flex justify-center items-center sticky top-10 z-50"></div>
           </div>
-          {currentUserPost?.length > 0 ? (
-            <div className="w-full px-8 flex flex-wrap gap-6">
+          { currentUserPost?.length > 0 ? (
+            postActive && <div className="w-full px-8 flex flex-wrap gap-6">
             <h1 className="text-2xl font-bold w-full">
               Your Posts
             </h1>
@@ -146,6 +173,12 @@ const Profile = () => {
           ))}
         </div>
           ): (<div className="text-[4.5rem] font-bold flex justify-center items-center h-full">No Posts 😒</div>)}
+          {
+            aboutActive && <About />
+          }
+          {
+            freindsActive && <AllFreinds />
+          }
           
         </div>
       </div>
