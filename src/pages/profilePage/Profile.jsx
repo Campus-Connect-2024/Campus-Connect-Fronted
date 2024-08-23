@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react";
 import { Navbar } from "../../Components";
 import coverImg from "/src/assets/cover.jpg";
 import { useSelector } from "react-redux";
-import {  GET_ALL_POSTS_BY_USER } from "../../utils/constants";
+import {  GET_ALL_POSTS_BY_USER, GET_USER_FOLLOWERS } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
 import { setCurrentUserPost } from "../../slice/postSlice";
 import { useDispatch } from "react-redux";
@@ -15,6 +15,7 @@ const Profile = () => {
   const [aboutActive, setAboutActive] = useState(true);
   const [freindsActive, setFreindsActive] = useState(false);
   const [postActive, setPostActive] = useState(false);
+  const [followers, setFollowers] = useState(0);
 
 
   const dispatch = useDispatch();
@@ -25,6 +26,12 @@ const Profile = () => {
     (async () => {
       try {
         console.log(`${GET_ALL_POSTS_BY_USER}${currentUser?._id}`);
+        const userFollowers = await apiClient.get(
+          `${GET_USER_FOLLOWERS}${currentUser?._id}`,
+          { withCredentials: true }
+        )
+        setFollowers(userFollowers.data.data.followers.length);
+        console.log("userFollowers", userFollowers.data.data.followers.length);
 
         const currentUserPost = await apiClient.get(
           `${GET_ALL_POSTS_BY_USER}${currentUser?._id}`,
@@ -38,6 +45,7 @@ const Profile = () => {
         console.error("currentUserPost_error", error);
       }
     })();
+    
   }, [currentUser?._id]);
 
   const AboutHandler = () => {
@@ -94,7 +102,7 @@ const Profile = () => {
             </div>
             <div className="flex justify-between px-4 pt-5 pb-3">
               <div>
-                <p className="text-center text-md font-bold">985</p>
+                <p className="text-center text-md font-bold">{followers}</p>
                 <p className="text-center italic font-normal text-gray-600 hover:text-black">
                   Followers
                 </p>

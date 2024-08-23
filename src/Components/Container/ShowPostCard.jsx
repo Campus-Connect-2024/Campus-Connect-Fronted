@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ProfileImage from "../ProfileImage";
 import HeartSvg from "/src/assets/heart.svg";
 import CommentSvg from "/src/assets/comment.svg";
@@ -11,11 +11,14 @@ import { apiClient } from "../../lib/api-client";
 import { COMMENT_ROUTE } from "../../utils/constants";
 import CommentBtn from "./CommentBtn";
 import RepostBtn from "./RepostBtn";
+import ShowComment from "./ShowComment";
 
 
 function ShowPostCard({ post = undefined }) {
   const [commentMsg, setCommentMsg] = useState("");
-
+  const [allComment, setAllComment] = useState([]);
+  // const [likes, setLikes]= useState('0')
+  const [showComments, setShowComments] = useState(false);
 
   const commentHandler = async () => {
     if(commentMsg.length > 0) {
@@ -35,6 +38,25 @@ function ShowPostCard({ post = undefined }) {
     }
     return ;
   };
+
+  useEffect(
+     () => {
+      try {
+        ( async () => {const getAllComment = await apiClient.get(
+          `${COMMENT_ROUTE}${post._id}`,
+          { withCredentials: true }
+        )
+        console.log("getAllComment", getAllComment.data.data);
+        if(getAllComment.data.data) {
+          setAllComment(getAllComment.data.data);
+        }
+      }
+
+      )();
+      } catch (error) {
+        console.log("comment_error", error)}
+    },
+  [commentMsg]);
 
   const time = new Date(post?.createdAt);
   // console.log(time);
@@ -72,8 +94,8 @@ function ShowPostCard({ post = undefined }) {
         </div>
 
         <div className="flex gap-10 pl-3 mt-5">
-          <LikeBtn svg={HeartSvg} post={post} />
-          <CommentBtn svg={CommentSvg} post={post} />
+          <LikeBtn svg={HeartSvg} post={post}/>
+          <CommentBtn svg={CommentSvg} post={post}  onClick={() => setShowComments(!showComments)}/>
           <RepostBtn svg={repostSvg} />
           
         </div>
@@ -84,6 +106,15 @@ function ShowPostCard({ post = undefined }) {
           }}  />
           <button className=" bg-blue-500 px-3 py-2 rounded-full w-14 h-11"><img src={sendSvg} className="" alt="post" onClick={commentHandler}/></button>
         </div>
+          {/* show all comments  */}
+        {(showComments && allComment.length > 0) && <div className={`w-full overflow-y-scroll ${allComment.length <= 2 ? 'h-[10vh]' : 'h-[30vh]'} no-scrollbar relative top-3`}>
+          
+          {allComment?.map((comment) => (
+            <ShowComment comment={comment} />
+            
+          ))}
+
+        </div>}
       </div>
     </div>
   );
