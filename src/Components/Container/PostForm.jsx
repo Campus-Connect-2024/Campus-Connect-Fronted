@@ -49,9 +49,9 @@ const PostForm = ({ postForm }) => {
   };
 
   return (
-    <div className="w-full h-100vh flex flex-col fixed top-0 left-0 right-0 bottom-0 ">
-      <div className="w-full h-full bg-white/85 rounded-2xl flex justify-center items-center flex-col px-[20rem]">
-        <div className="shadow-md border-2 border-white shadow-gray-600 rounded-2xl w-full p-5 bg-white">
+    <div className="w-full h-100vh flex flex-col fixed top-0 left-0 right-0 bottom-0 z-50">
+      <div className="w-full h-full bg-white/85 rounded-2xl flex justify-center items-center flex-col px-[20rem] z-50">
+        <div className="shadow-md border-2 border-white shadow-gray-600 rounded-2xl w-full p-5 bg-white ">
           <div className="flex justify-between items-center mb-3 w-full px-5">
             <Link to={"/profile"}>
             <div className="flex justify-center items-center gap-5">
