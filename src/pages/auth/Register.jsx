@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import victory from "../../assets/victory.svg";
 
-
-import { apiClient } from "../../lib/api-client";
-import {  REGISTER_ROUTE } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../slice/authSlice";
+import { login, register } from "../../slice/authThunk";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -42,19 +39,16 @@ const Auth = () => {
 
   const handleSignup = async () => {
     if (validateSignup()) {
-      const response = await apiClient.post(
-        REGISTER_ROUTE,
-        { email, password, fullName, username},
-        { withCredentials: true }
+      const response = await dispatch(
+        register({ email, password, fullName, username })
       );
-      if (response.status === 201) {
-        console.log("response ", response.data);
-        dispatch(setUserInfo(response.data));
-        navigate("/posts");
+      console.log("register_response ", response);
+      if (response) {
+        const login_res = await dispatch(login({ email, password }));
       }
-
-      console.log(response.data);
     }
+
+    // console.log(response.data);
   };
 
   return (

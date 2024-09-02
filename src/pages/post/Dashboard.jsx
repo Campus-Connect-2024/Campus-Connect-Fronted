@@ -7,15 +7,15 @@ import {
   RightSideCard,
 } from "../../Components";
 import { apiClient } from "../../lib/api-client";
-import { CURRENT_USER_ROUTES, GET_ALL_POSTS } from "../../utils/constants";
+import {  GET_ALL_POSTS } from "../../utils/constants";
 import LoadingPage from "../../Components/Container/LoadingPage";
 import { useDispatch } from "react-redux";
-import { setCurrentUserInfo } from "../../slice/authSlice";
+
+import { getUserData } from "../../slice/authThunk";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
   // const [currentUser, setCurrentUser] = useState(undefined);
   const dispatch = useDispatch();
 
@@ -26,41 +26,32 @@ const Dashboard = () => {
         const allPosts = await apiClient.get(GET_ALL_POSTS, {
           withCredentials: true,
         });
-        if (!allPosts) {
-          console.log("loading", loading);
-          setLoading(true);
-          setError(false);
-        }
+       
         if (allPosts) {
           setPosts(allPosts.data.data.posts);
-          setLoading(false);
-          setError(false);
+         
         }
         console.log(allPosts.data.data.posts);
-
-        const getCurrentUser = async () => {
-          try {
-            const CurrentUser = await apiClient.get(
-              CURRENT_USER_ROUTES,
-              
-              { withCredentials: true }
-            );
-            if(CurrentUser){
-              dispatch(setCurrentUserInfo(CurrentUser.data.data));
-              console.log("current user", CurrentUser.data.data);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        getCurrentUser();
       } catch (error) {
-        setLoading(false);
-        setError(true);
-        console.log(error);
+       
+        console.log("post_error: ", error);
       }
     })();
   }, []);
+
+  const getCurrentUser = async () => {
+    try {
+      const CurrentUser = await dispatch(getUserData());
+
+      if(CurrentUser){
+        
+        console.log("current user", CurrentUser);
+      }
+    } catch (error) {
+      console.log("current_user_error",error);
+    }
+  };
+  getCurrentUser();
 
   return (
     <div className="w-full h-100vh flex flex-col fixed top-0">

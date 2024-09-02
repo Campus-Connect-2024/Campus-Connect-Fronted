@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const CurrentUserAvatar = ({className=""}) => {
-    const currentUser = useSelector((state) => state.auth.currentUser);
+    const currentUser = useSelector((state) => state.auth.userData);
   return (
     <>
       <img

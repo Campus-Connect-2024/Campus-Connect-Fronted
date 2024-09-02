@@ -10,15 +10,15 @@ import AllCommunicatiesPage from "./pages/communities/AllCommunicatiesPage";
 import AllUsersPage from "./pages/users/AllUsersPage";
 
 function App() {
-  const login = useSelector((state) => state.auth.login);
-  // console.log("login", login);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  console.log("accessToken in app:", accessToken);
 
   const PrivateRoutes = ({ children }) => {
-    return login ? children : <Navigate to="/auth" />;
+    return accessToken ? children : <Navigate to="/auth" />;
   };
 
   const AuthRoute = ({ children }) => {
-    return !login ? children : <Navigate to="/dashboard" />;
+    return !accessToken ? children : <Navigate to="/dashboard" />;
   };
 
   return (
@@ -32,7 +32,14 @@ function App() {
             </AuthRoute>
           }
         ></Route>
-
+        <Route
+          path="/register"
+          element={
+            <AuthRoute>
+              <Register />
+            </AuthRoute>
+          }
+        ></Route>
         <Route
           path="/profile"
           element={
@@ -58,14 +65,16 @@ function App() {
             </PrivateRoutes>
           }
         ></Route>
-        <Route path="/all-people" element={
-          <PrivateRoutes>
-            <AllUsersPage />
-          </PrivateRoutes>
-        }></Route>
+        <Route
+          path="/all-people"
+          element={
+            <PrivateRoutes>
+              <AllUsersPage />
+            </PrivateRoutes>
+          }
+        ></Route>
 
-        <Route path="/register" element={<Register />}></Route>
-        {/* <Route path="*" element={<Auth />}></Route> */}
+        <Route path="/" element={<Auth />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -5,7 +5,7 @@ import CurrentUserAvatar from "../Container/CurrentUserAvatar"
 import { useSelector } from 'react-redux'
 
 function ProfileCard(className) {
-    const currentUser = useSelector((state) => state.auth.currentUser);
+    const currentUser = useSelector((state) => state.auth.userData);
     console.log("current user", currentUser);
     
   return (

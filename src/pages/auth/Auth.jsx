@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import victory from "../../assets/victory.svg";
 import backgroundImage from "../../assets/login2.png";
 
-import { apiClient } from "../../lib/api-client";
-import { LOGIN_ROUTE } from "../../utils/constants";
+import { login } from "../../slice/authThunk";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUserInfo, setLogin } from "../../slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,7 +14,8 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Error, setError] = useState("");
-  // const [isAuth , setisAuth] = useState(false);
+
+  const {token, loading} = useSelector((state) => state.auth);
 
   const validateLogin = () => {
     if (!email.length) {
@@ -32,32 +32,24 @@ const Auth = () => {
   const handlelogin = async () => {
     if (validateLogin()) {
       try {
-       
-        const response = await apiClient.post(
-          LOGIN_ROUTE,
-          { email, password },
-          { withCredentials: true }
-        );
+        
+        const response = await dispatch(login({email, password}));
 
         // console.log("access token", response.data.data.accessToken);
         // console.log("refresh token", response.data.data.refreshToken);
 
-        if (response.data.data.user._id) {
-          console.log("response ", response.data.data);
-          dispatch(setUserInfo(response.data.data.user));
-          // setisAuth(true);
-          localStorage.setItem("accessToken", response.data.data.accessToken);
-          localStorage.setItem("refreshToken", response.data.data.refreshToken);
-          if (response.data.data.user) {
-            
-            // console.log("login", isAuth);
-            
-            dispatch(setLogin(true));
-            navigate("/dashboard");
-          }
-        }
+        // if (response.data.data.user._id) {
+        //   console.log("response ", response.data.data);
+          
+        //   // setisAuth(true);
+        //   // localStorage.setItem("accessToken", response.data.data.accessToken);
+        //   // localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        //   if (response.data.data.user) {
+        //     navigate("/dashboard");
+        //   }
+        // }
   
-        console.log({ response });
+        console.log("login response:" , { response });
 
       } catch (error) {
         if(error){
@@ -115,12 +107,12 @@ const Auth = () => {
                 <Link to="/register">Create new account</Link>
               </div>
 
-              <button
+              {loading ? <span>Loading....... </span> : <button
                 className="rounded-full p-4 bg-blue-600 text-white"
                 onClick={handlelogin}
               >
                 Login
-              </button>
+              </button>}
             </div>
           </div>
         </div>

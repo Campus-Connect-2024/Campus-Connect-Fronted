@@ -16,11 +16,11 @@ const Profile = () => {
   const [freindsActive, setFreindsActive] = useState(false);
   const [postActive, setPostActive] = useState(false);
   const [followers, setFollowers] = useState(0);
-  const [profileImg, setProfileImg] = useState("");
+  
 
 
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useSelector((state) => state.auth.userData);
   const currentUserPost = useSelector((state) => state.post.currentUserPost);
 
   useEffect(() => {

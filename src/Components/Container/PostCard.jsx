@@ -8,7 +8,7 @@ import PostForm from './PostForm'
 import { useSelector } from 'react-redux'
 function PostCard() {
   const [postForm, setPostForm] = useState(false);
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useSelector((state) => state.auth.userData);
   const postFormHandler = () => {
     postForm ? setPostForm(false) : setPostForm(true);
   }
