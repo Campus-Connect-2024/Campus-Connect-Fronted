@@ -16,14 +16,14 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const logout = async () => {
+  const logoutHandler = async () => {
     try {
       const response = await apiClient.post(LOGOUT_ROUTE, {}, {
         withCredentials: true
       });
       console.log({ response });
       if (response.status === 200) {
-        // dispatch(logout({}));
+        dispatch(logout());
         navigate("/login");
       }
     } catch (error) {
@@ -70,7 +70,7 @@ function Header() {
           <span className="font-semibold text-gray-600">{currentUser?.fullName}</span>
         </Link>
         <div className="">
-          <button onClick={logout}>
+          <button onClick={logoutHandler}>
             <img className="hover:fill-blue-600 w-5" src={logoutSvg} />
           </button>
         </div>

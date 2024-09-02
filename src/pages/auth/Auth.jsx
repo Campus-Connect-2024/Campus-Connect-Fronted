@@ -15,7 +15,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Error, setError] = useState("");
-  // const [login , setLogin] = useState(false);
+  // const [isAuth , setisAuth] = useState(false);
 
   const validateLogin = () => {
     if (!email.length) {
@@ -39,11 +39,20 @@ const Auth = () => {
           { withCredentials: true }
         );
 
+        // console.log("access token", response.data.data.accessToken);
+        // console.log("refresh token", response.data.data.refreshToken);
+
         if (response.data.data.user._id) {
           console.log("response ", response.data.data);
           dispatch(setUserInfo(response.data.data.user));
-          
+          // setisAuth(true);
+          localStorage.setItem("accessToken", response.data.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.data.refreshToken);
           if (response.data.data.user) {
+            
+            // console.log("login", isAuth);
+            
+            dispatch(setLogin(true));
             navigate("/dashboard");
           }
         }

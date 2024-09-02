@@ -16,6 +16,7 @@ const Profile = () => {
   const [freindsActive, setFreindsActive] = useState(false);
   const [postActive, setPostActive] = useState(false);
   const [followers, setFollowers] = useState(0);
+  const [profileImg, setProfileImg] = useState("");
 
 
   const dispatch = useDispatch();
@@ -66,6 +67,35 @@ const Profile = () => {
     setPostActive(true);
   };
 
+  // const profileFileHandler = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setProfileImg(file);
+  //     console.log(file);
+  //   }
+  // };
+  // const profileHandler = async () => {
+  //   const data = new FormData();
+    
+  //   if (profileImg) {
+  //     data.append("MediaFile", profileImg);
+  //   }
+
+  //   try {
+  //     const response = await apiClient.post(CREATE_POST_ROUTE, data, {
+  //       withCredentials: true,
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+        
+  //     });
+  //     postForm();
+  //     console.log("createPostData", response.data);
+  //   } catch (error) {
+  //     console.error("create_post error", error);
+  //   }
+  // };
+
 
   return (
     <div className="w-full h-[100vh] fixed top-0 left-0 bg-[#f6f3ef]">
@@ -82,7 +112,7 @@ const Profile = () => {
           </div>
           <div className="flex justify-center items-center">
             <CurrentUserAvatar
-              className=" border-4  w-24 h-[5.5rem]"
+              className=" border-4  w-24 h-[5.5rem]" 
             />
           </div>
 
