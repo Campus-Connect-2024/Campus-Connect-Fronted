@@ -6,9 +6,7 @@ import logoutSvg from "/src/assets/logout.svg";
 import groupsvg from "/src/assets/peoplegroup.svg";
 import { Link, useNavigate } from "react-router-dom";
 
-import { apiClient } from "../../lib/api-client";
-import { LOGOUT_ROUTE } from "../../utils/constants";
-import { logout } from "../../slice/authSlice";
+import { logout } from "../../slice/authThunk";
 import { useDispatch, useSelector } from "react-redux";
 import CurrentUserAvatar from "../Container/CurrentUserAvatar";
 
@@ -18,14 +16,9 @@ function Header() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const logoutHandler = async () => {
     try {
-      const response = await apiClient.post(LOGOUT_ROUTE, {}, {
-        withCredentials: true
-      });
-      console.log({ response });
-      if (response.status === 200) {
-        dispatch(logout());
-        navigate("/login");
-      }
+     const res = await dispatch(logout());
+     console.log("logout res: ", res);
+
     } catch (error) {
       console.log("logout_error", error);
     }
