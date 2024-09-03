@@ -9,7 +9,7 @@ export const REGISTER_ROUTE = `${USER_ROUTES}/register`;
 export const LOGIN_ROUTE = `${USER_ROUTES}/login`;
 export const LOGOUT_ROUTE = `${USER_ROUTES}/logout`;
 export const GET_ALL_POSTS = `${POST_ROUTE}`;
-export const GET_ALL_POSTS_BY_USER = `${USER_ROUTES}/`;
+export const GET_ALL_POSTS_BY_USER = `${POST_ROUTE}/user/`;
 export const CREATE_POST_ROUTE = `${POST_ROUTE}`;
 export const GET_USER_FOLLOWERS = `api/v1/followers/u/`;
 
