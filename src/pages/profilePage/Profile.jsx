@@ -21,6 +21,8 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.userData);
+  console.log("profile currentUser", currentUser);
+  
   const currentUserPost = useSelector((state) => state.post.currentUserPost);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Profile = () => {
       }
     })();
     
-  }, [currentUser?._id]);
+  }, []);
 
   const AboutHandler = () => {
     setAboutActive(true);
@@ -67,34 +69,6 @@ const Profile = () => {
     setPostActive(true);
   };
 
-  // const profileFileHandler = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setProfileImg(file);
-  //     console.log(file);
-  //   }
-  // };
-  // const profileHandler = async () => {
-  //   const data = new FormData();
-    
-  //   if (profileImg) {
-  //     data.append("MediaFile", profileImg);
-  //   }
-
-  //   try {
-  //     const response = await apiClient.post(CREATE_POST_ROUTE, data, {
-  //       withCredentials: true,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-        
-  //     });
-  //     postForm();
-  //     console.log("createPostData", response.data);
-  //   } catch (error) {
-  //     console.error("create_post error", error);
-  //   }
-  // };
 
 
   return (
