@@ -5,7 +5,7 @@ import backgroundImage from "../../assets/login2.png";
 import { login } from "../../slice/authThunk";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { removeToken } from "../../utils/HelperFunctions";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [Error, setError] = useState("");
 
-  const {token, loading} = useSelector((state) => state.auth);
+  const {  loading } = useSelector((state) => state.auth);
 
   const validateLogin = () => {
     if (!email.length) {
@@ -32,36 +32,22 @@ const Auth = () => {
   const handlelogin = async () => {
     if (validateLogin()) {
       try {
-        
-        const response = await dispatch(login({email, password}));
+        const response = await dispatch(login({ email, password }));
 
-        // console.log("access token", response.data.data.accessToken);
-        // console.log("refresh token", response.data.data.refreshToken);
+        if (response.data) {
+          navigate("/dashboard");
+        }
 
-        // if (response.data.data.user._id) {
-        //   console.log("response ", response.data.data);
-          
-        //   // setisAuth(true);
-        //   // localStorage.setItem("accessToken", response.data.data.accessToken);
-        //   // localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        //   if (response.data.data.user) {
-        //     navigate("/dashboard");
-        //   }
-        // }
-  
-        console.log("login response:" , { response });
-
+        console.log("login response:", { response });
       } catch (error) {
-        if(error){
-         
+        if (error) {
           setError(error);
+          // removeToken();
           console.error("login_error", error.response.status);
           throw error;
-          
         }
-       
       }
-      }
+    }
   };
 
   return (
@@ -74,14 +60,13 @@ const Auth = () => {
               <img src={victory} className="h-[100px] " alt="victory imoji" />
             </div>
             <p className="font-medium text-center">
-            Fill in the details to get started with the best platform!
-              
+              Fill in the details to get started with the best platform!
             </p>
-            {
-            Error && <p className="font-medium text-center  text-red-600">
-              User Doesn't Exist. Create an account
-            </p>
-}
+            {Error && (
+              <p className="font-medium text-center  text-red-600">
+                User Doesn't Exist. Create an account
+              </p>
+            )}
           </div>
           <div className="flex items-center justify-center w-full ">
             <div className="flex flex-col gap-4 mt-4 w-[70%]">
@@ -107,12 +92,16 @@ const Auth = () => {
                 <Link to="/register">Create new account</Link>
               </div>
 
-              {loading ? <span>Loading....... </span> : <button
-                className="rounded-full p-4 bg-blue-600 text-white"
-                onClick={handlelogin}
-              >
-                Login
-              </button>}
+              {loading ? (
+                <span>Loading....... </span>
+              ) : (
+                <button
+                  className="rounded-full p-4 bg-blue-600 text-white"
+                  onClick={handlelogin}
+                >
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>
