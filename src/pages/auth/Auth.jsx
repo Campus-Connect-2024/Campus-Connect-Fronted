@@ -43,9 +43,9 @@ const Auth = () => {
         //   // setisAuth(true);
         //   // localStorage.setItem("accessToken", response.data.data.accessToken);
         //   // localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        //   if (response.data.data.user) {
-        //     navigate("/dashboard");
-        //   }
+          if (response.data.user) {
+            navigate("/dashboard");
+          }
         // }
   
         console.log("login response:" , { response });
