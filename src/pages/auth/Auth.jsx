@@ -34,11 +34,22 @@ const Auth = () => {
       try {
         const response = await dispatch(login({ email, password }));
 
-        if (response.data) {
-          navigate("/dashboard");
-        }
+        // console.log("access token", response.data.data.accessToken);
+        // console.log("refresh token", response.data.data.refreshToken);
 
-        console.log("login response:", { response });
+        // if (response.data.data.user._id) {
+        //   console.log("response ", response.data.data);
+          
+        //   // setisAuth(true);
+        //   // localStorage.setItem("accessToken", response.data.data.accessToken);
+        //   // localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        //   if (response.data.data.user) {
+        //     navigate("/dashboard");
+        //   }
+        // }
+  
+        console.log("login response:" , { response });
+
       } catch (error) {
         if (error) {
           setError(error);
