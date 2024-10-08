@@ -5,20 +5,17 @@ import CommentSvg from "/src/assets/comment.svg";
 import repostSvg from "/src/assets/repost.svg";
 import sendSvg from "/src/assets/send.svg";
 import LikeBtn from "./LikeBtn";
-
 import PostTime from "../../PostTime";
 import { apiClient } from "../../lib/api-client";
 import { COMMENT_ROUTE } from "../../utils/constants";
 import CommentBtn from "./CommentBtn";
 import RepostBtn from "./RepostBtn";
 import ShowComment from "./ShowComment";
-
-import ReactPlayer from "react-player";
+import VideoPlayer from "../VideoPlayer";
 
 function ShowPostCard({ post = undefined }) {
   const [commentMsg, setCommentMsg] = useState("");
   const [allComment, setAllComment] = useState([]);
-  // const [likes, setLikes]= useState('0')
   const [showComments, setShowComments] = useState(false);
 
   const commentHandler = async () => {
@@ -30,7 +27,6 @@ function ShowPostCard({ post = undefined }) {
           { withCredentials: true }
         );
         setCommentMsg("");
-        console.log("comment", response.data.data);
       } catch (error) {
         console.log("comment_error", error);
       }
@@ -45,7 +41,6 @@ function ShowPostCard({ post = undefined }) {
           `${COMMENT_ROUTE}${post._id}`,
           { withCredentials: true }
         );
-        console.log("getAllComment", getAllComment.data.data);
         if (getAllComment.data.data) {
           setAllComment(getAllComment.data.data);
         }
@@ -56,44 +51,40 @@ function ShowPostCard({ post = undefined }) {
   }, [commentMsg]);
 
   const time = new Date(post?.createdAt);
-  // console.log(time);
+
   return (
-    <div className="bg-white flex flex-col py-5 px-8 rounded-[1.5rem] w-full h-34 my-6 shadow-md border-2 border-white">
-      <div className="w-full mr-7 flex  ">
+    <div className="bg-white flex flex-col py-5 px-4 md:px-8 rounded-[1.5rem] w-full h-auto my-6 shadow-md border-2 border-white max-w-3xl mx-auto ">
+      <div className="w-full flex">
         <ProfileImage
-          className="w-16 border-2 h-16"
+          className="w-12 h-12 md:w-16 md:h-16 border-2"
           imgUrl={post?.owner.avatar}
         />
-        <div className="flex flex-col">
-          <div className="flex justify-center items-center">
-            <p className="font-semibold text-xl ml-6 mr-4 mt-2 mb-1 text-black">
+        <div className="flex flex-col ml-4 md:ml-6">
+          <div className="flex flex-col md:flex-row md:items-center">
+            <p className="font-semibold text-[1rem] md:text-xl text-black">
               {post?.owner.fullName}
             </p>
-            {/* <p className="my-2 text-gray-700">@{post?.owner.username}</p> */}
           </div>
           <PostTime date={time} />
         </div>
       </div>
-      <div className="w-full mt-3 pl-16">
-        <div className="mb-5 px-5 text-black">
+
+      <div className="w-full mt-3 md:pl-16">
+        <div className="mb-5 px-3 md:px-5 text-black">
           <p className="text-justify">{post?.description}</p>
         </div>
-        <div className="px-5">
-          {post?.MediaFile.url && (
-            <div className="w-full ">
+
+        <div className="px-3 md:px-5 ">
+          {post?.MediaFile?.url && (
+            <div className="w-full">
               {post?.resourceType === "video" ? (
-                <video
-                  src={post?.MediaFile.url}
-                  controls
-                  muted
-                  
-                  preload="auto"
-                  className="w-full  rounded-2xl overflow-hidden"
-                ></video>
-                //  <ReactPlayer url={post?.MediaFile.url} playing={true}  muted={false} width={"100%"} height={"100%"} className="w-full  rounded-2xl overflow-hidden" style={{ borderRadius: '30px',   overflow: 'hidden'}} /> 
+                <VideoPlayer
+                  videoUrl={post?.MediaFile.url}
+                  className={"w-full rounded-2xl overflow-hidden"}
+                />
               ) : (
                 <img
-                  className="w-full rounded-2xl overflow-hidden"
+                  className="w-full rounded-2xl overflow-hidden "
                   src={post?.MediaFile.url}
                   alt="post"
                 />
@@ -102,7 +93,7 @@ function ShowPostCard({ post = undefined }) {
           )}
         </div>
 
-        <div className="flex gap-10 pl-3 mt-5">
+        <div className="flex gap-4 md:gap-10 pl-2 md:pl-3 mt-5">
           <LikeBtn svg={HeartSvg} post={post} />
           <CommentBtn
             svg={CommentSvg}
@@ -111,37 +102,39 @@ function ShowPostCard({ post = undefined }) {
           />
           <RepostBtn svg={repostSvg} />
         </div>
-        <div className="flex gap-5 mt-5">
+
+        <div className="flex gap-4 md:gap-5 mt-5 items-center">
           <ProfileImage
             imgUrl={post?.owner.avatar}
-            className="w-11 h-11 ml-5"
+            className="w-9 h-9 md:w-11 md:h-11 ml-2 md:ml-5"
           />
           <input
-            placeholder="write your commet..."
-            className="px-5 py-3 bg-gray-300 w-full rounded-2xl border-none  outline-none text-black"
+            placeholder="Write your comment..."
+            className="px-3 py-2 md:px-5 md:py-3 bg-gray-300 w-full rounded-xl border-none outline-none text-black"
             value={commentMsg}
             onChange={(e) => {
               setCommentMsg(e.target.value);
             }}
           />
-          <button className=" bg-blue-500 px-3 py-2 rounded-full w-14 h-11">
+          <button className="flex items-center justify-center rounded-full">
             <img
               src={sendSvg}
-              className=""
-              alt="post"
+              alt="send"
               onClick={commentHandler}
+              className="w-7 h-7 "
             />
           </button>
         </div>
-        {/* show all comments  */}
+
+        {/* Show comments */}
         {showComments && allComment.length > 0 && (
           <div
             className={`w-full overflow-y-scroll ${
               allComment.length <= 2 ? "h-[10vh]" : "h-[30vh]"
-            } no-scrollbar relative top-3`}
+            } no-scrollbar mt-3`}
           >
             {allComment?.map((comment) => (
-              <ShowComment comment={comment} />
+              <ShowComment key={comment._id} comment={comment} />
             ))}
           </div>
         )}

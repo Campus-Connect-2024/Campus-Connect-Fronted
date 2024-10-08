@@ -14,3 +14,31 @@ export const CREATE_POST_ROUTE = `${POST_ROUTE}`;
 export const GET_USER_FOLLOWERS = `api/v1/followers/u/`;
 
 // export const GET_USER_INFO = `${AUTH_ROUTES}/user-info`;
+
+import Homesvg from "/src/assets/Home.svg";
+import msgSvg from "/src/assets/message.svg";
+
+import groupsvg from "/src/assets/peoplegroup.svg";
+
+export const navLinks = [
+  {
+    name: "Home",
+    path: "/dashboard",
+    image: Homesvg,
+  },
+  {
+    name: "Message",
+    path: "/message",
+    image: msgSvg,
+  },
+  {
+    name: "Community",
+    path: "/communities",
+    image: groupsvg,
+  },
+  {
+    name: "All people",
+    path: "/all-people",
+    image: groupsvg,
+  },
+];

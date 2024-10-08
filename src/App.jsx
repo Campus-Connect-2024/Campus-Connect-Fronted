@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import React, { useState } from "react";
 import Auth from "./pages/auth/Auth";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/post/Dashboard";
@@ -8,6 +7,8 @@ import Profile from "./pages/profilePage/Profile";
 import { useSelector } from "react-redux";
 import AllCommunicatiesPage from "./pages/communities/AllCommunicatiesPage";
 import AllUsersPage from "./pages/users/AllUsersPage";
+import LoadingPage from "./Components/Container/LoadingPage";
+import ErrorPage from "./Components/Container/ErrorPage";
 
 function App() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -75,6 +76,7 @@ function App() {
         ></Route>
 
         <Route path="/" element={<Auth />}></Route>
+        <Route path="/error" element={<ErrorPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
