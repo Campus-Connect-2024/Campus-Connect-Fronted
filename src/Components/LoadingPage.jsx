@@ -1,29 +1,6 @@
-// import React from 'react'
-
-// const LoadingPage = () => {
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
-//       {/* Campus-Connect Title */}
-//       <h1 className="text-3xl md:text-5xl font-bold text-blue-600 mb-8 animate-pulse">
-//         Campus Connect
-//       </h1>
-
-//       {/* Spinning Loader */}
-//       <div className="flex justify-center items-center space-x-2">
-//         <div className="w-8 h-8 border-4 border-blue-400 border-solid rounded-full animate-spin border-t-transparent"></div>
-//       </div>
-
-//       {/* Loading Text */}
-//       <p className="mt-6 text-lg text-gray-600">Loading, please wait...</p>
-//     </div>
-//   );
-// }
-
-// export default LoadingPage
-
 import React from "react";
 import { FaSpinner } from "react-icons/fa"; // React icons for the spinner
-import logo from "../../assets/Campus.svg"; // Import the logo image
+import logo from "../assets/Campus.svg"; // Import the logo image
 
 function LoadingPage() {
   return (

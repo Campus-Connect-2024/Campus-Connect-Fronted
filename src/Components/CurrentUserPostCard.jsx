@@ -1,12 +1,11 @@
 import React from "react";
-
 import HeartSvg from "/src/assets/heart.svg";
 import CommentSvg from "/src/assets/comment.svg";
 import repostSvg from "/src/assets/repost.svg";
 
 const CurrentUserPostCard = ({ post = undefined }) => {
-  console.log("current_post media", post.MediaFile);
-  console.log("current_post ", post);
+  // console.log("current_post media", post.MediaFile);
+  // console.log("current_post ", post);
 
   return (
     <div className="bg-[#f6f3ef] flex flex-wrap py-4 px-5 rounded-[1.2rem] w-[46%] m-2 shadow-lg border-none ">

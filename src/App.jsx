@@ -7,8 +7,7 @@ import Profile from "./pages/profilePage/Profile";
 import { useSelector } from "react-redux";
 import AllCommunicatiesPage from "./pages/communities/AllCommunicatiesPage";
 import AllUsersPage from "./pages/users/AllUsersPage";
-import LoadingPage from "./Components/Container/LoadingPage";
-import ErrorPage from "./Components/Container/ErrorPage";
+import { LoadingPage, ErrorPage } from "./Components/index.js";
 
 function App() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -19,7 +18,7 @@ function App() {
   };
 
   const AuthRoute = ({ children }) => {
-    return !accessToken ? children : <Navigate to="/dashboard" />;
+    return !accessToken ? children : <Navigate to="/" />;
   };
 
   return (
@@ -50,7 +49,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <PrivateRoutes>
               <Dashboard />
@@ -75,8 +74,9 @@ function App() {
           }
         ></Route>
 
-        <Route path="/" element={<Auth />}></Route>
+        {/* <Route path="/" element={<Auth />}></Route> */}
         <Route path="/error" element={<ErrorPage />}></Route>
+        <Route path="/loading" element={<LoadingPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
