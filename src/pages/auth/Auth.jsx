@@ -34,7 +34,7 @@ const Auth = () => {
         const response = await dispatch(login({ email, password }));
 
         if (response.data.user) {
-          navigate("/dashboard");
+          navigate("/");
         }
 
         console.log("login response:", { response });

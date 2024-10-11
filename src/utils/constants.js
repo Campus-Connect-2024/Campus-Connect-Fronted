@@ -23,7 +23,7 @@ import groupsvg from "/src/assets/peoplegroup.svg";
 export const navLinks = [
   {
     name: "Home",
-    path: "/dashboard",
+    path: "/",
     image: Homesvg,
   },
   {

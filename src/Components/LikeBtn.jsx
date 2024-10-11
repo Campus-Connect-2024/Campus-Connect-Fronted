@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { LIKE_ROUTE } from '../../utils/constants';
-import { apiClient } from '../../lib/api-client';
+import { LIKE_ROUTE } from '../utils/constants';
+import { apiClient } from '../lib/api-client';
 import { useSelector } from 'react-redux';
 function LikeBtn({className, svg, post}) {
     const [Likes, setLikes] = useState([]);

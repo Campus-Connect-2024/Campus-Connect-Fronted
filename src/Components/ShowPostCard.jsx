@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import ProfileImage from "../ProfileImage";
+import ProfileImage from "./ProfileImage";
 import HeartSvg from "/src/assets/heart.svg";
 import CommentSvg from "/src/assets/comment.svg";
 import repostSvg from "/src/assets/repost.svg";
 import sendSvg from "/src/assets/send.svg";
 import LikeBtn from "./LikeBtn";
-import PostTime from "../../PostTime";
-import { apiClient } from "../../lib/api-client";
-import { COMMENT_ROUTE } from "../../utils/constants";
+import PostTime from "../PostTime";
+import { apiClient } from "../lib/api-client";
+import { COMMENT_ROUTE } from "../utils/constants";
 import CommentBtn from "./CommentBtn";
 import RepostBtn from "./RepostBtn";
 import ShowComment from "./ShowComment";
-import VideoPlayer from "../VideoPlayer";
+import VideoPlayer from "./VideoPlayer";
 
 function ShowPostCard({ post = undefined }) {
   const [commentMsg, setCommentMsg] = useState("");

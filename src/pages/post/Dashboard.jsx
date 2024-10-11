@@ -5,49 +5,63 @@ import {
   ShowPostCard,
   LeftSideCard,
   RightSideCard,
-} from "../../Components";
+  LoadingPage,
+  ErrorPage,
+} from "../../Components/index.js";
 import { apiClient } from "../../lib/api-client";
 import { GET_ALL_POSTS } from "../../utils/constants";
-import LoadingPage from "../../Components/Container/LoadingPage";
 import { useDispatch } from "react-redux";
-
 import { getUserData } from "../../slice/authThunk";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
+        setError(false);
         const allPosts = await apiClient.get(GET_ALL_POSTS, {
           withCredentials: true,
         });
 
         if (allPosts) {
+          setLoading(false);
           setPosts(allPosts.data.data.posts);
         }
-        console.log(allPosts.data.data.posts);
-      } catch (error) {
-        console.log("post_error: ", error);
+       
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+        console.log("post_error: ", err);
       }
     })();
+
+    const getCurrentUser = async () => {
+      try {
+        setLoading(true);
+        const CurrentUser = await dispatch(getUserData());
+
+        if (CurrentUser) {
+          setLoading(false);
+          // console.log("current user", CurrentUser);
+        }
+      } catch (err) {
+        setLoading(false);
+        console.log("current_user_error", err);
+      }
+    };
+    getCurrentUser();
   }, []);
 
-  const getCurrentUser = async () => {
-    try {
-      const CurrentUser = await dispatch(getUserData());
-
-      if (CurrentUser) {
-        console.log("current user", CurrentUser);
-      }
-    } catch (error) {
-      console.log("current_user_error", error);
-    }
-  };
-  getCurrentUser();
-
-  return (
+  return loading ? (
+    <LoadingPage />
+  ) : error ? (
+    <ErrorPage />
+  ) : (
     <div className="w-full h-screen flex flex-col">
       {/* Navbar */}
       <div className="sticky top-0 z-50">

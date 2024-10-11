@@ -76,14 +76,11 @@
 
 import React, { useState } from "react";
 import CampusSvg from "/src/assets/Campus.svg";
-import Homesvg from "/src/assets/Home.svg";
-import msgSvg from "/src/assets/message.svg";
 import logoutSvg from "/src/assets/logout.svg";
-import groupsvg from "/src/assets/peoplegroup.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../slice/authThunk";
 import { useDispatch, useSelector } from "react-redux";
-import CurrentUserAvatar from "../Container/CurrentUserAvatar";
+import {CurrentUserAvatar} from "../index.js";
 // import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger icon
 import { FiAlignRight } from "react-icons/fi";
 import { navLinks } from "../../utils/constants";
@@ -107,7 +104,7 @@ function Header() {
     <nav className="w-full flex justify-between px-4 lg:px-[3.4rem] py-4 bg-white items-center shadow-md">
       {/* Left Section */}
       <div className="flex items-center">
-        <Link to="/dashboard">
+        <Link to="/">
           <img className="w-8 md:w-10" src={CampusSvg} alt="campus-logo" />
         </Link>
 

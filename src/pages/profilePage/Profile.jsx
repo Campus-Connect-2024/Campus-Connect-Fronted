@@ -208,10 +208,8 @@ import { GET_ALL_POSTS_BY_USER, GET_USER_FOLLOWERS } from "../../utils/constants
 import { apiClient } from "../../lib/api-client";
 import { setCurrentUserPost } from "../../slice/postSlice";
 import { useDispatch } from "react-redux";
-import CurrentUserPostCard from "../../Components/Container/CurrentUserPostCard";
-import CurrentUserAvatar from "../../Components/Container/CurrentUserAvatar";
-import About from "../../Components/Container/About";
-import AllFreinds from "../../Components/Container/AllFreinds";
+import {CurrentUserAvatar, CurrentUserPostCard, About, AllFreinds} from "../../Components/index.js"
+
 
 const Profile = () => {
   const [aboutActive, setAboutActive] = useState(true);

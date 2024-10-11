@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import coverImg from "/src/assets/cover.jpg"
-import CurrentUserAvatar from "../Container/CurrentUserAvatar"
+import {CurrentUserAvatar} from "./index.js"
 import { useSelector } from 'react-redux'
 
 function ProfileCard(className) {
     const currentUser = useSelector((state) => state.auth.userData);
-    console.log("current user", currentUser);
+    // console.log("current user", currentUser);
     
   return (
     <div className="bg-white rounded-[1.8rem] w-full md:w-[14vw] lg:w-full text-black shadow-md border-2 border-white  ">

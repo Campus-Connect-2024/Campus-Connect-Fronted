@@ -35,7 +35,7 @@
 // export default PostCard
 
 import React, { useState } from 'react';
-import ProfileImage from '../ProfileImage';
+import ProfileImage from './ProfileImage';
 import PostForm from './PostForm';
 import photoSvg from '/src/assets/Gallery.svg';
 import videoSvg from '/src/assets/video.svg';

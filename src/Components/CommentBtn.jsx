@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import { apiClient } from '../../lib/api-client';
-import { COMMENT_ROUTE } from '../../utils/constants';
+import { apiClient } from '../lib/api-client';
+import { COMMENT_ROUTE } from '../utils/constants';
 const CommentBtn = ({svg, className, post, onClick}) => {
     const [comments, setComments] = useState([]);
 

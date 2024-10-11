@@ -1,6 +1,6 @@
 import React from "react";
 import FollowBtn from "./FollowBtn";
-import ProfileImage from "../ProfileImage";
+import ProfileImage from "./ProfileImage";
 import resultImg from "/src/assets/icon.jpeg";
 function PeopleCard() {
   return (
