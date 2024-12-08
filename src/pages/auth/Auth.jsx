@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import victory from "../../assets/victory.svg";
-import backgroundImage from "../../assets/login2.png";
+import backgroundImage from "../../assets/login.jpg";
 import { login } from "../../slice/authThunk";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,28 +46,27 @@ const Auth = () => {
   };
 
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center">
-      <div className="p-8 md:p-2 md:h-[80vh] bg-white border-2 border-white text-opacity-90 shadow-2xl shadow-black w-[90vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2   ">
-        <div className="flex flex-col gap-10 items-center justify-center">
-          <div className="flex flex-col justify-center items-center">
-            <div className="flex  justify-center items-center ">
-              <h1 className="text-5xl font-bold md:text-6xl">Welcome</h1>
-              <img src={victory} className="h-[100px]" alt="victory imoji" />
-            </div>
-            <p className="font-medium text-center px-8 md:px-3 text-black/75">
-              Fill in the details to get started with the best platform!
-            </p>
-            {Error && (
-              <p className="font-medium text-center  text-red-600">
-                User Doesn't Exist. Create an account
-              </p>
-            )}
-          </div>
-          <div className="flex items-center justify-center w-full ">
-            <div className="flex flex-col gap-4 mt-4 w-[70%]">
+    <div className="h-[100vh] w-[100vw] flex lg:items-center justify-center bg-white pt-20 px-4 lg:py-20 lg:pr-10 lg:pl-36">
+          <div className="flex lg:items-center justify-center w-full h-full">
+            <div className="flex flex-col gap-4 w-full lg:w-1/2">
+              <div className="flex flex-col justify-center lg:items-center p-4">
+                <h1 className="text-6xl font-bold md:text-6xl mb-3 text-center">
+                  Welcome to <span className="text-blue-600">Campus-Connect</span>
+                </h1>
+                {/* <img src={victory} className="h-[100px]" alt="victory imoji" /> */}
+                <p className="font-medium text-center px-8 md:px-3 text-black/75">
+                  Fill in the details to get started with the best platform!
+                </p>
+                {Error && (
+                  <p className="font-medium text-center  text-red-600">
+                    User Doesn't Exist. Create an account
+                  </p>
+                )}
+              </div>
+
               <input
                 type="email"
-                className="bg-gray-50 outline-none  border ring-1 border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 outline-none  border ring-1 border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
                 placeholder="demo@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -102,17 +101,12 @@ const Auth = () => {
                 <Link to="/register">Create new account</Link>
               </div>
             </div>
+            <div className="hidden lg:block lg:w-1/2 justify-center items-center p-4">
+              <img className="w-full" src={backgroundImage} alt="background login image" />
+            </div>
           </div>
         </div>
-        <div className=" hidden xl:flex justify-center items-center">
-          <img
-            src={backgroundImage}
-            alt="background login image"
-            className="h-[630px]"
-          />
-        </div>
-      </div>
-    </div>
+    
   );
 };
 

@@ -11,10 +11,10 @@ import { LoadingPage, ErrorPage } from "./Components/index.js";
 
 function App() {
   const accessToken = useSelector((state) => state.auth.accessToken);
-  console.log("accessToken in app:", accessToken);
+  // console.log("accessToken in app:", accessToken);
 
   const PrivateRoutes = ({ children }) => {
-    return accessToken ? children : <Navigate to="/auth" />;
+    return accessToken ? children : <Navigate to="/login" />;
   };
 
   const AuthRoute = ({ children }) => {
@@ -25,7 +25,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/auth"
+          path="/login"
           element={
             <AuthRoute>
               <Auth />
