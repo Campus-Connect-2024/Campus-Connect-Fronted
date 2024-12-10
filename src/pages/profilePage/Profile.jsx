@@ -206,7 +206,7 @@ import coverImg from "/src/assets/cover.jpg";
 import { useSelector } from "react-redux";
 import { GET_ALL_POSTS_BY_USER, GET_USER_FOLLOWERS } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
-import { setCurrentUserPost } from "../../slice/postSlice";
+import { setCurrentUserPost } from "../../Redux/slice/postSlice.js";
 import { useDispatch } from "react-redux";
 import {CurrentUserAvatar, CurrentUserPostCard, About, AllFreinds} from "../../Components/index.js"
 

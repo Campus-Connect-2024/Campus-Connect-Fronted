@@ -11,7 +11,7 @@ import {
 import { apiClient } from "../../lib/api-client";
 import { GET_ALL_POSTS } from "../../utils/constants";
 import { useDispatch } from "react-redux";
-import { getUserData } from "../../slice/authThunk";
+import { getUserData } from "../../Redux/slice/authThunk";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
