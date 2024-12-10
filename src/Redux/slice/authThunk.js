@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { apiClient } from "../lib/api-client";
-import { LOGIN_ROUTE, LOGOUT_ROUTE, REGISTER_ROUTE, CURRENT_USER_ROUTES } from "../utils/constants";
-import { setToken, getToken, removeToken } from "../utils/HelperFunctions";
+import { apiClient } from "../../lib/api-client";
+import { LOGIN_ROUTE, LOGOUT_ROUTE, REGISTER_ROUTE, CURRENT_USER_ROUTES } from "../../utils/constants";
+import { setToken, getToken, removeToken } from "../../utils/HelperFunctions";
 
 export const register = createAsyncThunk("auth/register", async (payload) => {
     try {

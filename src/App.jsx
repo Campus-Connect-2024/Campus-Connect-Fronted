@@ -1,25 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Auth from "./pages/auth/Auth";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/post/Dashboard";
 import Register from "./pages/auth/Register";
 import Profile from "./pages/profilePage/Profile";
-import { useSelector } from "react-redux";
 import AllCommunicatiesPage from "./pages/communities/AllCommunicatiesPage";
 import AllUsersPage from "./pages/users/AllUsersPage";
-import { LoadingPage, ErrorPage } from "./Components/index.js";
+import { LoadingPage } from "./Components/index.js";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import PrivateRoute from "./utils/PrivateRoute.jsx";
+import AuthRoute from "./utils/AuthRoute.jsx";
 
 function App() {
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  // console.log("accessToken in app:", accessToken);
-
-  const PrivateRoutes = ({ children }) => {
-    return accessToken ? children : <Navigate to="/login" />;
-  };
-
-  const AuthRoute = ({ children }) => {
-    return !accessToken ? children : <Navigate to="/" />;
-  };
 
   return (
     <BrowserRouter>
@@ -43,38 +35,38 @@ function App() {
         <Route
           path="/profile"
           element={
-            <PrivateRoutes>
+            <PrivateRoute>
               <Profile />
-            </PrivateRoutes>
+            </PrivateRoute>
           }
         ></Route>
         <Route
           path="/"
           element={
-            <PrivateRoutes>
+            <PrivateRoute>
               <Dashboard />
-            </PrivateRoutes>
+            </PrivateRoute>
           }
         ></Route>
 
         <Route
           path="/communities"
           element={
-            <PrivateRoutes>
+            <PrivateRoute>
               <AllCommunicatiesPage />
-            </PrivateRoutes>
+            </PrivateRoute>
           }
         ></Route>
         <Route
           path="/all-people"
           element={
-            <PrivateRoutes>
+            <PrivateRoute>
               <AllUsersPage />
-            </PrivateRoutes>
+            </PrivateRoute>
           }
         ></Route>
 
-        {/* <Route path="/" element={<Auth />}></Route> */}
+        <Route path="/*" element={<Auth />}></Route>
         <Route path="/error" element={<ErrorPage />}></Route>
         <Route path="/loading" element={<LoadingPage />}></Route>
       </Routes>

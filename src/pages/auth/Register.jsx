@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import victory from "../../assets/victory.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login, register } from "../../slice/authThunk";
-import resisterImage from "../../assets/resister.jpg";
+import { login, register } from "../../Redux/slice/authThunk";
+import resisterImage from "../../assets/resister-bg.png";
 const Auth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

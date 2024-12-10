@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getToken} from "../utils/HelperFunctions"
+import {getToken} from "../../utils/HelperFunctions"
 import { getUserData, login, register, logout } from "./authThunk";
 
 const initialState = {

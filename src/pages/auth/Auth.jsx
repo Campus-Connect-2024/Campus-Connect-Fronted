@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import victory from "../../assets/victory.svg";
-import backgroundImage from "../../assets/login.jpg";
-import { login } from "../../slice/authThunk";
+import backgroundImage from "../../assets/login-bg.png";
+import { login } from "../../Redux/slice/authThunk";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "../../utils/HelperFunctions";
