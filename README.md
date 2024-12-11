@@ -86,13 +86,13 @@ Make sure you have the following tools installed:
 To start the development server and view the app in your browser:
 
 ```bash
-npm start
+npm run dev
 ```
 
 or
 
 ```bash
-yarn start
+yarn run dev
 ```
 
 The app should now be running at `http://localhost:3000`.
