@@ -1,20 +1,24 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import Auth from "./pages/auth/Auth";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/post/Dashboard";
 import Register from "./pages/auth/Register";
 import Profile from "./pages/profilePage/Profile";
 import AllCommunicatiesPage from "./pages/communities/AllCommunicatiesPage";
 import AllUsersPage from "./pages/users/AllUsersPage";
 import { LoadingPage } from "./Components/index.js";
-import ErrorPage from "./pages/ErrorPage.jsx";
+import ErrorPage from "./pages/Error/ErrorPage.jsx";
 import PrivateRoute from "./utils/PrivateRoute.jsx";
 import AuthRoute from "./utils/AuthRoute.jsx";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LandingPage from "./pages/Landing/LandingPage.jsx";
+import PageNotFound from "./pages/Error/PageNotFound.jsx";
 
 function App() {
-
+  const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard.jsx"));
   return (
     <BrowserRouter>
+    <div className="p-0 m-0 box-border">
       <Routes>
         <Route
           path="/login"
@@ -44,7 +48,17 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
+              <LandingPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+            <Suspense fallback={<LoadingPage />}>
               <Dashboard />
+            </Suspense>
             </PrivateRoute>
           }
         ></Route>
@@ -66,11 +80,14 @@ function App() {
           }
         ></Route>
 
-        <Route path="/*" element={<Auth />}></Route>
+        <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/error" element={<ErrorPage />}></Route>
         <Route path="/loading" element={<LoadingPage />}></Route>
       </Routes>
+      <ToastContainer position="bottom-right"/>
+    </div>
     </BrowserRouter>
+  
   );
 }
 

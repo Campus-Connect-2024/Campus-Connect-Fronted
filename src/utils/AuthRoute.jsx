@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { getToken } from './HelperFunctions';
 
 const AuthRoute = ({ children }) => {
-    const { token } = useSelector((state) => state.auth); // Get token from Redux state
+    const accessToken = getToken(); // Get token from Redux state
 
-    return !token ? children : <Navigate to="/" />;
+    return !accessToken ? children : <Navigate to="/" />;
 };
 
 export default AuthRoute;
