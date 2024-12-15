@@ -24,6 +24,8 @@ import PostForm from "./PostForm.jsx";
 import RepostBtn from "./RepostBtn.jsx";
 import ShowComment from "./ShowComment.jsx";
 import VideoPlayer from "./VideoPlayer.jsx";
+import Input from "./Input.jsx";
+import Button from "./Button.jsx";
 
 export {
   Navbar,
@@ -52,4 +54,6 @@ export {
   RepostBtn,
   ShowComment,
   VideoPlayer,
+  Input,
+  Button
 };

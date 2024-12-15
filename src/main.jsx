@@ -6,9 +6,10 @@ import TimeAgo from './Time.js'
 import { Provider } from 'react-redux'
 import store from './Redux/store/store.js'
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-      <React.StrictMode>
+  <React.StrictMode>
     <App />
   </React.StrictMode>
     </Provider>

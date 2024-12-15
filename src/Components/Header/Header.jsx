@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {CurrentUserAvatar} from "../index.js";
 import { FiAlignRight } from "react-icons/fi";
 import { navLinks } from "../../utils/constants";
+import { toast } from "react-toastify";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // state for mobile menu
@@ -17,14 +18,18 @@ function Header() {
   const logoutHandler = async () => {
     try {
       const res = await dispatch(logout());
-      console.log("logout res: ", res);
+      if(res.payload.data.success){
+        toast.success("Logout successfully!");
+        navigate("/login");
+      }
+      // console.log("logout res: ", res);
     } catch (error) {
-      console.log("logout_error", error);
+      console.error("logout_error", error);
     }
   };
 
   return (
-    <nav className="w-full flex justify-between px-4 lg:px-[3.4rem] py-4 bg-white items-center shadow-md">
+    <nav className="w-full flex justify-between px-4 lg:px-[3.4rem] py-4 bg-white items-center shadow-md ">
       {/* Left Section */}
       <div className="flex items-center">
         <Link to="/">

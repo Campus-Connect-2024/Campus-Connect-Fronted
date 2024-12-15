@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiClient } from "../../lib/api-client";
 import { LOGIN_ROUTE, LOGOUT_ROUTE, REGISTER_ROUTE, CURRENT_USER_ROUTES } from "../../utils/constants";
-import { setToken, getToken, removeToken } from "../../utils/HelperFunctions";
+import { setToken, removeToken } from "../../utils/HelperFunctions";
 
-export const register = createAsyncThunk("auth/register", async (payload) => {
+export const signup = createAsyncThunk("auth/register", async (payload, thunkAPI) => {
     try {
         const response = await apiClient.post(
             REGISTER_ROUTE,
@@ -13,38 +13,37 @@ export const register = createAsyncThunk("auth/register", async (payload) => {
 
           return response.data;
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
         console.log("register error", error);
         
     }
 })
 
 
-export const login = createAsyncThunk("auth/login", async (payload) => {
+export const login = createAsyncThunk("auth/login", async (payload, thunkAPI) => {
   try {
     const response = await apiClient.post(LOGIN_ROUTE, payload, {
       withCredentials: true,
     });
 
     console.log({ response });
-    const {refreshToken, accessToken} = response.data.data;
-    setToken(accessToken, refreshToken);
+    const { accessToken} = response.data.data;
+    setToken(accessToken);
 
     if (response.data) {
       return response.data;
     }
 
   } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
     console.log("login error", error.message);
   }
 });
 
 export const getUserData = createAsyncThunk("auth/getUserData", async () => {
     try {
-        // const accessToken = getToken();
-        // console.log("token in getuser",accessToken);
         const response = await apiClient.get(
             CURRENT_USER_ROUTES,
-            
             { withCredentials: true }
           );
           if(response.data){

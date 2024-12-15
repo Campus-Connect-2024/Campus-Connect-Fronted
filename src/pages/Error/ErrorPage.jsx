@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import errorImg1 from '../assets/error2.png';
-import errorImg2 from '../assets/404.png';
+import errorImg1 from '../../assets/error2.png';
+import errorImg2 from '../../assets/404.png';
 import { FaInstagram, FaLinkedin} from "react-icons/fa";
 import { FaSquareXTwitter, FaGithub} from "react-icons/fa6";
+import { Button } from '../../Components';
+import { useNavigate } from 'react-router-dom';
 const ErrorPage = () => {
     const [click, setclick] = useState(false);
     const errorImage = click ? errorImg2 : errorImg1;
+    const navigate = useNavigate();
     const handleImageToggle = () => {
         setclick(!click);
     }
@@ -24,11 +27,12 @@ const ErrorPage = () => {
             {/* Text Section */}
             <div className="lg:w-1/2 mt-6 lg:mt-0 lg:pl-12">
                 <h1 className="text-5xl xl:text-6xl font-bold text-gray-800 mb-4">AWWW...DON'T CRY.</h1>
-                <p className="text-lg xl:text-xl text-gray-600 mb-6">
+                <p className="text-lg xl:text-xl text-gray-600 ">
                     It's just a 404 Error! <br />
                     What you're looking for may have been misplaced in Long Term Memory.
                 </p>
-                <div className="flex justify-center lg:justify-start space-x-4">
+                <div className="flex justify-center lg:justify-start space-x-4 my-4">
+                <Button btn_text="Back to Home" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 md:px-4 rounded" onClick={() => navigate("/")}/>
                     <a
                         href="https://www.github.com"
                         target="_blank"
