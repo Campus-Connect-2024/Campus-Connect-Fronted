@@ -12,6 +12,7 @@ export const GET_ALL_POSTS = `${POST_ROUTE}`;
 export const GET_ALL_POSTS_BY_USER = `${POST_ROUTE}/user/`;
 export const CREATE_POST_ROUTE = `${POST_ROUTE}`;
 export const GET_USER_FOLLOWERS = `api/v1/followers/u/`;
+export const REFRESH_TOKEN_ROUTE = `${USER_ROUTES}/refresh-token`;
 
 // export const GET_USER_INFO = `${AUTH_ROUTES}/user-info`;
 
