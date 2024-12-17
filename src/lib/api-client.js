@@ -2,7 +2,7 @@ import axios from "axios";
 import { HOST, REFRESH_TOKEN_ROUTE } from "../utils/constants";
 
 
-console.log("HOST: ", HOST);
+// console.log("HOST: ", HOST);
 export const apiClient = axios.create({
     baseURL: HOST,
     headers: {

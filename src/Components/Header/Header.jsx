@@ -32,7 +32,7 @@ function Header() {
     <nav className="w-full flex justify-between px-4 lg:px-[3.4rem] py-4 bg-white items-center shadow-md ">
       {/* Left Section */}
       <div className="flex items-center">
-        <Link to="/">
+        <Link to="/dashboard">
           <img className="w-8 md:w-10" src={CampusSvg} alt="campus-logo" />
         </Link>
 

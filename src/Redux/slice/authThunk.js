@@ -14,7 +14,7 @@ export const signup = createAsyncThunk("auth/register", async (payload, thunkAPI
           return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
-        console.log("register error", error);
+        // console.log("register error", error);
         
     }
 })
@@ -26,7 +26,7 @@ export const login = createAsyncThunk("auth/login", async (payload, thunkAPI) =>
       withCredentials: true,
     });
 
-    console.log({ response });
+    // console.log({ response });
     const { accessToken, refreshToken} = response.data.data;
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
@@ -37,7 +37,7 @@ export const login = createAsyncThunk("auth/login", async (payload, thunkAPI) =>
 
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
-    console.log("login error", error.message);
+    // console.log("login error", error.message);
   }
 });
 
@@ -51,8 +51,9 @@ export const getUserData = createAsyncThunk("auth/getUserData", async () => {
             return response.data;
           }
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
         removeToken();
-        console.log("getUserdata error", error);
+        // console.log("getUserdata error", error);
         
     }
 })
@@ -62,11 +63,12 @@ export const logout = createAsyncThunk("auth/logout", async () => {
         const response = await apiClient.post(LOGOUT_ROUTE, {}, {
             withCredentials: true
           });
-          console.log({ response });
+          // console.log({ response });
           removeToken();
           return response;
     } catch (error) {
-        console.log("logout error", error);
+      return thunkAPI.rejectWithValue(error.message);
+        // console.log("logout error", error);
         
     }
 })

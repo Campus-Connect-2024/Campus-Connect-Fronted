@@ -1,5 +1,5 @@
 export const HOST = import.meta.env.VITE_SERVER_URL;
-console.log(HOST);
+// console.log(HOST);
 export const USER_ROUTES = "api/v1/users";
 export const CURRENT_USER_ROUTES = "api/v1/users/current-user";
 export const POST_ROUTE = "api/v1/posts";
@@ -24,7 +24,7 @@ import groupsvg from "/src/assets/peoplegroup.svg";
 export const navLinks = [
   {
     name: "Home",
-    path: "/",
+    path: "/dashboard",
     image: Homesvg,
   },
   {

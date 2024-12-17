@@ -14,7 +14,7 @@ const Auth = () => {
 
   const handleSignup =  async (data) => {
     reset();
-    console.log("data", data);
+    // console.log("data", data);
     // const { email,  fullName, username, password, confirmPassword } = data;
       const response = await dispatch(signup({...data}));
       // console.log("register_response ", response);
