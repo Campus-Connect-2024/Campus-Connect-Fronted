@@ -28,11 +28,11 @@ function PostCard() {
 
         <div className='flex gap-6 sm:gap-12 w-full px-4'>
           <button onClick={postFormHandler} className='flex gap-2 sm:gap-3 text-black cursor-pointer hover:font-bold'>
-            <img src={photoSvg} alt="Photo" className='w-6 h-6 sm:w-8 sm:h-8' />
+            <img src={photoSvg} alt="Photo" className='w-6 h-6 ' />
             Photo
           </button>
           <button onClick={postFormHandler} className='flex gap-2 sm:gap-3 text-black cursor-pointer hover:font-bold'>
-            <img src={videoSvg} alt="Video" className='w-6 h-6 sm:w-8 sm:h-8' />
+            <img src={videoSvg} alt="Video" className='w-6 h-6 ' />
             Video
           </button>
         </div>

@@ -1,12 +1,31 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import coverImg from "/src/assets/cover.jpg"
 import {CurrentUserAvatar} from "./index.js"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { GET_USER_FOLLOWERS } from '../utils/constants.js'
+import { apiClient } from '../lib/api-client.js'
 
 function ProfileCard(className) {
+    const [followers, setFollowers] = useState(0);
     const currentUser = useSelector((state) => state.auth.userData);
-    // console.log("current user", currentUser);
+    console.log("current user", currentUser);
+    const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const userFollowers = await apiClient.get(
+          `${GET_USER_FOLLOWERS}${currentUser?._id}`,
+          { withCredentials: true }
+        );
+        console.log("userFollowers", userFollowers.data.data);
+        setFollowers(userFollowers.data.data.followers.length);
+      } catch (error) {
+        console.error("currentUserPost_error", error);
+      }
+    })();
+  }, [currentUser]);
     
   return (
     <div className="bg-white rounded-[1.8rem] w-full md:w-[14vw] lg:w-full text-black shadow-md border-2 border-white  ">
@@ -25,11 +44,11 @@ function ProfileCard(className) {
         
         <div className='flex justify-between px-4 pt-5 pb-8'>
             <div>
-                <p  className='text-center text-md font-bold'>985</p>
+                <p  className='text-center text-md font-bold'>{followers}</p>
                 <p className='text-center italic font-normal text-gray-600 hover:text-black'>Followers</p>
             </div>
             <div>
-                <p className='text-center text-md font-bold'>1512</p>
+                <p className='text-center text-md font-bold'>{0}</p>
                 <p className='text-center italic font-normal text-gray-700 hover:text-black'>Following</p>
             </div>
         </div>

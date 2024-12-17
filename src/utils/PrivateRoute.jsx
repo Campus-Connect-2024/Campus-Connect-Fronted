@@ -4,7 +4,7 @@ import { getToken } from './HelperFunctions';
 
 const PrivateRoute = ({ children }) => {
     const  accessToken = getToken();
-    console.log(accessToken);
+    // console.log(accessToken);
     return accessToken ? children : <Navigate to="/login"/>;
 };
 

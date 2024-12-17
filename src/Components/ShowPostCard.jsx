@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ProfileImage from "./ProfileImage";
 import HeartSvg from "/src/assets/heart.svg";
 import CommentSvg from "/src/assets/comment.svg";
 import repostSvg from "/src/assets/repost.svg";
 import sendSvg from "/src/assets/send.svg";
-import LikeBtn from "./LikeBtn";
 import PostTime from "../PostTime";
 import { apiClient } from "../lib/api-client";
-import { COMMENT_ROUTE } from "../utils/constants";
-import CommentBtn from "./CommentBtn";
+import { COMMENT_ROUTE, LIKE_ROUTE } from "../utils/constants";
 import RepostBtn from "./RepostBtn";
 import ShowComment from "./ShowComment";
 import VideoPlayer from "./VideoPlayer";
-
+import Heart from "react-animated-heart";
 function ShowPostCard({ post = undefined }) {
   const [commentMsg, setCommentMsg] = useState("");
-  const [allComment, setAllComment] = useState([]);
+  const [commentCount, setCommentCount] = useState(post.commentsCount);
+  const [allComment, setAllComment] = useState(post.comments);
   const [showComments, setShowComments] = useState(false);
+  const [isLike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likesCount);
+  const [likes, setLikes] = useState(post.likes);
 
   const commentHandler = async () => {
     if (commentMsg.length > 0) {
@@ -26,6 +28,7 @@ function ShowPostCard({ post = undefined }) {
           { content: commentMsg, postId: post._id },
           { withCredentials: true }
         );
+        setCommentCount(commentCount + 1);
         setCommentMsg("");
       } catch (error) {
         console.log("comment_error", error);
@@ -34,9 +37,29 @@ function ShowPostCard({ post = undefined }) {
     return;
   };
 
-  useEffect(() => {
+  useCallback(() => {
+    likes.map((like) => {
+      if (like.likedBy === post.owner._id) {
+        setIsLike(true);
+      }
+    });
+  }, [likes]);
+
+  const handleLikes = async () => {
     try {
+      await apiClient.post(
+        `${LIKE_ROUTE}${post._id}`,
+        {},
+        { withCredentials: true }
+      );
+    } catch (error) {
+      console.log("getAllLikes", error);
+    }
+  };
+
+  useEffect(() => {
       (async () => {
+        try {
         const getAllComment = await apiClient.get(
           `${COMMENT_ROUTE}${post._id}`,
           { withCredentials: true }
@@ -44,10 +67,11 @@ function ShowPostCard({ post = undefined }) {
         if (getAllComment.data.data) {
           setAllComment(getAllComment.data.data);
         }
+      } catch (error) {
+        console.log("comment_error", error);
+      }
       })();
-    } catch (error) {
-      console.log("comment_error", error);
-    }
+    
   }, [commentMsg]);
 
   const time = new Date(post?.createdAt);
@@ -93,24 +117,36 @@ function ShowPostCard({ post = undefined }) {
           )}
         </div>
 
-        <div className="flex gap-4 md:gap-10 pl-2 md:pl-3 mt-5">
-          <LikeBtn svg={HeartSvg} post={post} />
-          <CommentBtn
-            svg={CommentSvg}
-            post={post}
-            onClick={() => setShowComments(!showComments)}
-          />
-          <RepostBtn svg={repostSvg} />
+        <div className="flex justify-evenly items-center gap-4  pl-2 md:pl-3">
+        <span className="flex gap-1 text-black cursor-pointer items-center text-lg">
+             <Heart isClick={isLike} onClick={() => {
+                setIsLike(!isLike);
+                isLike
+                  ? setLikeCount(likeCount - 1)
+                  : setLikeCount(likeCount + 1);
+                handleLikes();
+              }} styles={{ width: "80px", height: "70px", marginTop: "-28px"}} />
+             <span> {likeCount}</span></span>
+            <span className="flex gap-3 text-black cursor-pointer items-center text-lg">
+              <img
+                src={CommentSvg}
+                alt="commnet"
+                onClick={() => setShowComments(!showComments)}
+              />{" "}
+              {commentCount}{" "}
+            </span>
+            <span className='flex gap-3 text-black cursor-pointer items-center text-lg'><img src={repostSvg}  alt="repost_btn" /> {0} </span>
+          
         </div>
 
-        <div className="flex gap-4 md:gap-5 mt-5 items-center">
+        <div className="w-full flex gap-4 md:gap-5 mt-3 justify-evenly items-center">
           <ProfileImage
             imgUrl={post?.owner.avatar}
             className="w-9 h-9 md:w-11 md:h-11 ml-2 md:ml-5"
           />
           <input
             placeholder="Write your comment..."
-            className="px-3 py-2 md:px-5 md:py-3 bg-gray-300 w-full rounded-xl border-none outline-none text-black"
+            className="px-3 w-[70%] py-2 md:px-5 bg-gray-300  rounded-xl border-none outline-none text-black"
             value={commentMsg}
             onChange={(e) => {
               setCommentMsg(e.target.value);
@@ -121,7 +157,7 @@ function ShowPostCard({ post = undefined }) {
               src={sendSvg}
               alt="send"
               onClick={commentHandler}
-              className="w-7 h-7 "
+              className="w-8 h-8"
             />
           </button>
         </div>

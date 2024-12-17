@@ -1,36 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
     posts: [],
-    post: {},
-    postFile: null,
-    displayPostForm: false,
-    currentUserPost: [],
-
+    loading: false,
 }
 
  const postSlice = createSlice({ 
     name: "post",
     initialState,
     reducers: {
-        setPosts: (state, action) => {
-            state.posts = action.payload
-        },
-        setPost: (state, action) => {
-            state.post = action.payload
-        },
-        setPostFile: (state, action) => {
-            state.postFile = action.payload
-        },
-        setCurrentUserPost: (state, action) => {
-            state.currentUserPost = action.payload
-        },
-        setDisplayPostForm: (state, action) => {
-            state.displayPostForm = action.payload
-        },
-    }   
+        getPost: (state, action) => {
+            state.loading = false;
+            // console.log("getPost", action.payload);
+            state.posts = action.payload.data.posts;
+        }
+    },
+    // extraReducers: (builder) => {
+    //     builder
+    //     .addCase(getPost.pending, (state) => {
+    //         state.loading = true;
+    //     })
+    //     .addCase(getPost.fulfilled, (state, action) => {
+    //         state.loading = false;
+    //         console.log("getPost", action.payload);
+    //         state.posts = action.payload.data.posts;
+    //     })
+    //     .addCase(getPost.rejected, (state) => {
+    //         state.loading = false;
+    //         state.error = true;
+    //     })
+    // }   
 })
-
-export const {setPosts, setPost, setPostFile, setDisplayPostForm, setCurrentUserPost} = postSlice.actions;
-
+export const { getPost} = postSlice.actions
 export default postSlice.reducer
